@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/big_button.dart';
+import 'package:flutter_recipe_app_course/core/presentation/components/filter_button.dart';
+import 'package:flutter_recipe_app_course/core/presentation/components/input_field.dart';
+import 'package:flutter_recipe_app_course/core/presentation/components/rating_button.dart';
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 import 'core/presentation/components/medium_button.dart';
 import 'core/presentation/components/small_button.dart';
+import 'core/presentation/components/two_tab.dart';
+import 'core/presentation/dialogs/rating_dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,12 +53,44 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            "Component",
+          "Component",
           style: TextStyles.largeTextBold,
         ),
       ),
       body: ListView(
-        children:  [
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) {
+                      return RatingDialog(
+                          title: 'Rate Recipe',
+                          score: 3,
+                          actionName: 'Send',
+                          onChange: (score) {
+                            print(score);
+                          }
+                      );
+                    }
+                );
+              },
+              child: const Text("RatingDialog")
+          ),
+          TwoTab(
+            labels: const [
+              "label 1",
+              "label 2",
+            ],
+            selectedIndex: 0, onChange: (int index) {
+            print("TwoTab : $index");
+          },
+          ),
+          const RatingButton("text"),
+          const RatingButton("text", isSelected: true,),
+          const FilterButton("text"),
+          const FilterButton("text", isSelected: true,),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: BigButton("Big Button", onPressed: () {
@@ -72,6 +109,10 @@ class MyHomePage extends StatelessWidget {
               print("SmallButton");
             },),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const InputField(label: "Label", placeHolder: "PlaceHolder"),
+          )
         ],
       ),
     );
