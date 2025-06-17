@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../data/repository/mock_bookmark_repository_impl.dart';
 import '../../data/repository/mock_recipe_repository_impl.dart';
 import '../../domain/use_case/get_saved_recipes_use_case.dart';
-import '../../presentation/saved_recipes/saved_recipes_screen.dart';
+import '../../presentation/saved_recipes/screen/saved_recipes_screen.dart';
 
 final router = GoRouter(
   initialLocation: RoutePaths.splash,
