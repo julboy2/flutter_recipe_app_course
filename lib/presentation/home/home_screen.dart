@@ -12,60 +12,74 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: Column(
-            children: [
-
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          "Hello $name",
-                        style: TextStyles.largeTextBold,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Hello $name", style: TextStyles.largeTextBold),
+                    const SizedBox(height: 5),
+                    Text(
+                      "What are you cooking today?",
+                      style: TextStyles.smallerTextRegular.copyWith(
+                        color: ColorStyles.gray3,
                       ),
-                      const SizedBox(height: 5,),
-                      Text(
-                          "What are you cooking today?",
-                        style: TextStyles.smallerTextRegular.copyWith(
-                          color: ColorStyles.gray3,
-                        ),
-                      )
-                    ],
+                    ),
+                  ],
+                ),
+                const Spacer(),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorStyles.secondary40,
                   ),
-                  const Spacer(),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: ColorStyles.secondary40,
+                  child: Image.asset("assets/image/face.png"),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    // 해당 이벤트를 클릭해도 위에 GestureDetector 가 동작을 안하기 때문에
+                    // IgnorePointer 로 감싸고 behavior: HitTestBehavior.opaque 속성을 준다..
+                    // behavior: HitTestBehavior.opaque, 해당 속성은 ontap 이 일어나는 영역을 확실하게 해주는 역할이다.
+                    behavior: HitTestBehavior.opaque,
+                    onTap: (){
+                      print("tap");
+                    },
+                    child: IgnorePointer(
+                      child: SearchInputField(
+                        // 해당 이벤트를 클릭해도 위에 GestureDetector 가 동작을 안하기 때문에
+                        // IgnorePointer 로 감싼다.
+                        placeHolder: "Search Recipe",
+                        isReadonly: true,
+                      ),
                     ),
-                    child: Image.asset("assets/image/face.png"),
-                  )
-                ],
-              ),
-              const SizedBox(height: 30,),
-              Row(
-                children: [
-                  Expanded(child: SearchInputField(placeHolder: "Search Recipe")),
-                  const SizedBox(width: 20,),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: ColorStyles.primary100,
-                    ),
-                    child: Icon(Icons.tune , color: Colors.white,),
-                  )
-                ],
-              )
-            ],
-          ),
-        )
+                  ),
+                ),
+                const SizedBox(width: 20),
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: ColorStyles.primary100,
+                  ),
+                  child: Icon(Icons.tune, color: Colors.white),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
