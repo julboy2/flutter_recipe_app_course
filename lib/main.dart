@@ -11,6 +11,7 @@ import 'package:flutter_recipe_app_course/presentation/sign_in/sign_in_screen.da
 import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 
 import 'core/presentation/components/medium_button.dart';
+import 'core/presentation/components/search_input_field.dart';
 import 'core/presentation/components/small_button.dart';
 import 'core/presentation/components/two_tab.dart';
 import 'core/presentation/dialogs/rating_dialog.dart';
@@ -53,6 +54,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          SearchInputField(placeHolder: "placeHolder",),
           ElevatedButton(
               onPressed: () {
                 showDialog(
