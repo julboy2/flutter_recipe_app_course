@@ -7,12 +7,14 @@ class SearchInputField extends StatelessWidget {
   final String placeHolder;
   final TextEditingController? controller;
   final bool isReadonly;
+  final void Function(String query)? onChanged;
 
   const SearchInputField({
     super.key,
     required this.placeHolder,
     this.controller,
     this.isReadonly = false,
+    this.onChanged,
   });
 
   @override
@@ -22,6 +24,7 @@ class SearchInputField extends StatelessWidget {
       child: TextField(
         readOnly: isReadonly,
         controller: controller,
+        onChanged: onChanged,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search, color: ColorStyles.gray4),
           enabledBorder: OutlineInputBorder(

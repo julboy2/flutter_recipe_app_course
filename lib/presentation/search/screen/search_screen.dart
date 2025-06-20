@@ -9,8 +9,9 @@ import '../../../ui/text_styles.dart';
 
 class SearchScreen extends StatelessWidget {
   final SearchState state;
+  final void Function(String query)? onChanged;
 
-  const SearchScreen({super.key, required this.state});
+  const SearchScreen({super.key, required this.state, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,12 @@ class SearchScreen extends StatelessWidget {
             const SizedBox(height: 17),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: SearchInputField(
                     // 해당 이벤트를 클릭해도 위에 GestureDetector 가 동작을 안하기 때문에
                     // IgnorePointer 로 감싼다.
                     placeHolder: "Search Recipe",
+                    onChanged: onChanged,
                   ),
                 ),
                 const SizedBox(width: 20),
