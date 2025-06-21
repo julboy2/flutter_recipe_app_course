@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app_course/core/di/di_setup.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/big_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/filter_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/input_field.dart';
@@ -18,6 +19,9 @@ import 'core/presentation/dialogs/rating_dialog.dart';
 import 'core/routing/router.dart';
 
 void main() {
+  // di 를 꼭 호출한다.
+  diSetup();
+
   runApp(const MyApp());
 }
 
