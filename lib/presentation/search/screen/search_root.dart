@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app_course/data/data_source/local/default_local_storage.dart';
 import 'package:flutter_recipe_app_course/data/data_source/local/local_recent_search_recipe_date_source_impl.dart';
+import 'package:flutter_recipe_app_course/data/data_source/local_storage.dart';
 import 'package:flutter_recipe_app_course/data/data_source/remote/remote_recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app_course/data/repository/mock_recent_search_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app_course/data/repository/mock_recipe_repository_impl.dart';
@@ -7,8 +9,13 @@ import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_cas
 import 'package:flutter_recipe_app_course/presentation/search/screen/search_screen.dart';
 import 'package:flutter_recipe_app_course/presentation/search/search_view_model.dart';
 
+// localStorage 는 리셋이 되면 안되니깐
+// 싱글톤 객체여야 된다.
+final LocalStorage _localStorage = DefaultLocalStorage();
+
+
 final _recentSearchRecipeRepository = MockRecentSearchRecipeRepositoryImpl(
-  recipeDataSource: LocalRecentSearchRecipeDataSourceImpl(),
+  localStorage: _localStorage,
 );
 
 class SearchRoot extends StatelessWidget {
@@ -21,7 +28,7 @@ class SearchRoot extends StatelessWidget {
       searchRecipesUseCase: SearchRecipesUseCase(
           recipeRepository: MockRecipeRepositoryImpl(
               recipeDataSource: RemoteRecipeDataSourceImpl(),
-          )
+          ), localStorage: _localStorage,
       ),
     );
 

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SearchState {
 
- List<Recipe> get recipes; bool get isLoading;
+ List<Recipe> get recipes; bool get isLoading; String get searchTitle; String get resultsCount;
 /// Create a copy of SearchState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $SearchStateCopyWith<SearchState> get copyWith => _$SearchStateCopyWithImpl<Sear
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchState&&const DeepCollectionEquality().equals(other.recipes, recipes)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SearchState&&const DeepCollectionEquality().equals(other.recipes, recipes)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.searchTitle, searchTitle) || other.searchTitle == searchTitle)&&(identical(other.resultsCount, resultsCount) || other.resultsCount == resultsCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recipes),isLoading);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(recipes),isLoading,searchTitle,resultsCount);
 
 @override
 String toString() {
-  return 'SearchState(recipes: $recipes, isLoading: $isLoading)';
+  return 'SearchState(recipes: $recipes, isLoading: $isLoading, searchTitle: $searchTitle, resultsCount: $resultsCount)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $SearchStateCopyWith<$Res>  {
   factory $SearchStateCopyWith(SearchState value, $Res Function(SearchState) _then) = _$SearchStateCopyWithImpl;
 @useResult
 $Res call({
- List<Recipe> recipes, bool isLoading
+ List<Recipe> recipes, bool isLoading, String searchTitle, String resultsCount
 });
 
 
@@ -63,11 +63,13 @@ class _$SearchStateCopyWithImpl<$Res>
 
 /// Create a copy of SearchState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? recipes = null,Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? recipes = null,Object? isLoading = null,Object? searchTitle = null,Object? resultsCount = null,}) {
   return _then(SearchState(
 recipes: null == recipes ? _self.recipes : recipes // ignore: cast_nullable_to_non_nullable
 as List<Recipe>,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,searchTitle: null == searchTitle ? _self.searchTitle : searchTitle // ignore: cast_nullable_to_non_nullable
+as String,resultsCount: null == resultsCount ? _self.resultsCount : resultsCount // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

@@ -10,9 +10,16 @@ class SearchState with _$SearchState{
   final List<Recipe> recipes;
   @override
   final bool isLoading;
+  @override
+  final String searchTitle;
+  @override
+  final String resultsCount;
+
 
   const SearchState({
     this.recipes = const [],
-    this.isLoading = false
+    this.isLoading = false,
+    this.searchTitle = "Resent Search",
+    this.resultsCount = "",
   });
 }
