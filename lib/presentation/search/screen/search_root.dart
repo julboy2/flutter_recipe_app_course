@@ -39,22 +39,20 @@ class SearchRoot extends StatelessWidget {
           state: viewModel.state,
           // onChanged: (query) => viewModel.searchRecipes(query),
           onChanged: viewModel.searchRecipes,
-          onTapFilter: (){
+          onTapFilter: () {
             showModalBottomSheet(
-                context: context,
-                // 화면 전체를 다덥는 창이 뜬다.
-                isScrollControlled: true,
-                builder: (context) {
-                  return SearchFilterSheet(
-                    state: FilterState(
-                        time: "Newest",
-                        rate: 4,
-                        category: "Local Dish",
-                    ), onChangeFilter: (FilterState state) {
-                      viewModel.onChangeFilter(state);
+              context: context,
+              // 화면 전체를 다덥는 창이 뜬다.
+              isScrollControlled: true,
+              builder: (context) {
+                return SearchFilterSheet(
+                  state: viewModel.state.filterState,
+                  onChangeFilter: (FilterState state) {
+                    viewModel.onChangeFilter(state);
+                    Navigator.pop(context);
                   },
-                  );
-                }
+                );
+              },
             );
           },
         );
