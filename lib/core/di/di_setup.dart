@@ -17,6 +17,8 @@ import 'package:flutter_recipe_app_course/presentation/saved_recipes/saved_recip
 import 'package:flutter_recipe_app_course/presentation/search/search_view_model.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../data/repository/error_mock_recipe_repository_impl.dart';
+
 final getIt = GetIt.instance;
 
 //saved_recipes_root 에서의 di 수정위해
