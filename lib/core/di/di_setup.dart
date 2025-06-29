@@ -10,6 +10,7 @@ import 'package:flutter_recipe_app_course/domain/repository/recent_search_recipe
 import 'package:flutter_recipe_app_course/domain/repository/recipe_repository.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_dishes_by_category_use_case.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/get_new_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_view_model.dart';
@@ -50,6 +51,10 @@ void diSetup() {
   getIt.registerSingleton(
     GetDishesByCategoryUseCase(recipeRepository: getIt()),
   );
+  getIt.registerSingleton(
+    GetNewRecipesUseCase(recipeRepository: getIt()),
+  );
+
 
   // ViewModel
   // SavedRecipesViewModel 을 호출할때 마다 매번 이코드가 실행 되면서 인스턴스가 따라온다.
@@ -67,6 +72,7 @@ void diSetup() {
     () => HomeViewModel(
       getCategoriesUseCase: getIt(),
       getDishesByCategoryUseCase: getIt(),
+      getNewRecipesUseCase: getIt(),
     ),
   );
 }
