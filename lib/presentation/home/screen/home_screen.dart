@@ -6,20 +6,19 @@ import '../../../core/presentation/components/dish_card.dart';
 import '../../../core/presentation/components/new_recipe_card.dart';
 import '../../../core/presentation/components/recipe_category_selector.dart';
 import '../../../ui/text_styles.dart';
+import '../home_action.dart';
 import '../home_state.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String name;
-  final void Function() onTapSearchField;
-  final void Function(String category) onSelectCategory;
+  // MVI 패턴
+  // 장점 : 상태와 콜백이 하나로 모였다.
   final HomeState state;
+  final void Function(HomeAction action) onAction;
 
   const HomeScreen({
     super.key,
-    required this.name,
-    required this.onTapSearchField,
-    required this.onSelectCategory,
     required this.state,
+    required this.onAction,
   });
 
   @override
@@ -39,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Hello $name", style: TextStyles.largeTextBold),
+                          Text("Hello ${state.name}", style: TextStyles.largeTextBold),
                           const SizedBox(height: 5),
                           Text(
                             "What are you cooking today?",
@@ -71,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                           // IgnorePointer 로 감싸고 behavior: HitTestBehavior.opaque 속성을 준다..
                           // behavior: HitTestBehavior.opaque, 해당 속성은 ontap 이 일어나는 영역을 확실하게 해주는 역할이다.
                           behavior: HitTestBehavior.opaque,
-                          onTap: onTapSearchField, // 클릭시 상위부모에게 값전달
+                          onTap: () => onAction(const HomeAction.onTapSearchField()) , // 클릭시 상위부모에게 값전달
                           child: IgnorePointer(
                             child: SearchInputField(
                               // 해당 이벤트를 클릭해도 위에 GestureDetector 가 동작을 안하기 때문에
@@ -103,7 +102,8 @@ class HomeScreen extends StatelessWidget {
               child: RecipeCategorySelector(
                 categories: state.categories,
                 selectedCategory: state.selectedCategory,
-                onSelectCategory: onSelectCategory,
+                onSelectCategory: (category) =>
+                  onAction(HomeAction.onSelectCategory(category)),
               ),
             ),
             const SizedBox(height: 15),
