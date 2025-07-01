@@ -5,6 +5,7 @@ import 'package:flutter_recipe_app_course/ui/color_styles.dart';
 import '../../../core/presentation/components/dish_card.dart';
 import '../../../core/presentation/components/new_recipe_card.dart';
 import '../../../core/presentation/components/recipe_category_selector.dart';
+import '../../../domain/model/recipe.dart';
 import '../../../ui/text_styles.dart';
 import '../home_action.dart';
 import '../home_state.dart';
@@ -116,7 +117,9 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 15),
                     child: DishCard(
                       recipe: e,
-                      isFavorite: true,
+                      onTapFavorite: (Recipe recipe) {
+                        onAction(HomeAction.onTapFavorite(recipe));
+                      },
                     ),
                   )).toList(),
                 ),

@@ -1,6 +1,8 @@
-
 import 'package:flutter_recipe_app_course/domain/model/recipe_ingredient.dart';
 
+// 해당 클래스를 만들기 귀찮기 때문에
+// freezed 를 사용하면 된다.
+/*
 class Recipe {
   final int id;
   final String category;
@@ -10,6 +12,7 @@ class Recipe {
   final String time;
   final double rating;
   final List<RecipeIngredient> ingredients;
+  final bool isFavorite;
 
   Recipe({
     required this.id,
@@ -20,6 +23,7 @@ class Recipe {
     required this.time,
     required this.rating,
     required this.ingredients,
+    this.isFavorite = false,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
@@ -31,9 +35,15 @@ class Recipe {
       chef: json['chef'] as String,
       time: json['time'] as String,
       rating: (json['rating'] as num).toDouble(),
-      ingredients: (json['ingredients'] as List<dynamic>?)
-          ?.map((item) => RecipeIngredient.fromJson(item as Map<String, dynamic>))
-          .toList() ?? [],
+      isFavorite: (json["isFavorite"] as bool?) ?? false,
+      ingredients:
+          (json['ingredients'] as List<dynamic>?)
+              ?.map(
+                (item) =>
+                    RecipeIngredient.fromJson(item as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
     );
   }
 
@@ -46,13 +56,14 @@ class Recipe {
       'chef': chef,
       'time': time,
       'rating': rating,
+      "isFavorite": isFavorite,
       'ingredients': ingredients.map((item) => item.toJson()).toList(),
     };
   }
 
   @override
   String toString() {
-    return 'Recipe(id: $id, category: $category, name: $name, chef: $chef, time: $time, rating: $rating, ingredients: $ingredients)';
+    return 'Recipe{id: $id, category: $category, name: $name, image: $image, chef: $chef, time: $time, rating: $rating, ingredients: $ingredients, isFavorite: $isFavorite}';
   }
 }
 
@@ -60,9 +71,7 @@ class Recipe {
 class RecipeCollection {
   final List<Recipe> recipes;
 
-  RecipeCollection({
-    required this.recipes,
-  });
+  RecipeCollection({required this.recipes});
 
   factory RecipeCollection.fromJson(Map<String, dynamic> json) {
     return RecipeCollection(
@@ -73,13 +82,74 @@ class RecipeCollection {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'recipes': recipes.map((recipe) => recipe.toJson()).toList(),
-    };
+    return {'recipes': recipes.map((recipe) => recipe.toJson()).toList()};
   }
 
   @override
   String toString() {
     return 'RecipeCollection(recipes: $recipes)';
+  }
+}
+*/
+
+import 'recipe_ingredient.dart';
+
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'recipe.freezed.dart';
+
+part 'recipe.g.dart';
+
+@freezed
+class Recipe with _$Recipe {
+  // const factory Recipe({
+  //   required String category,
+  //   required int id,
+  //   required String name,
+  //   required String image,
+  //   required String chef,
+  //   required String time,
+  //   required double rating,
+  //   required List<RecipeIngredient> ingredients,
+  //   @Default(false) bool isFavorite,
+  // }) = _Recipe;
+
+  @override
+  final String category;
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final String image;
+  @override
+  final String chef;
+  @override
+  final String time;
+  @override
+  final double rating;
+  @override
+  final List<RecipeIngredient> ingredients;
+  @override
+  final bool isFavorite;
+
+  const Recipe({
+    this.category = "",
+    this.id = 0,
+    this.name = "",
+    this.image = "",
+    this.chef = "",
+    this.time = "",
+    this.rating = 0,
+    this.ingredients = const [],
+    this.isFavorite = false,
+  });
+
+  factory Recipe.fromJson(Map<String, Object?> json) => _$RecipeFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 }

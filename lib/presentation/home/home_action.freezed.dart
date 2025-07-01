@@ -140,4 +140,79 @@ as String,
 
 }
 
+/// @nodoc
+
+
+class OnTapFavorite<T> implements HomeAction<T> {
+  const OnTapFavorite(this.recipe);
+  
+
+ final  Recipe recipe;
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$OnTapFavoriteCopyWith<T, OnTapFavorite<T>> get copyWith => _$OnTapFavoriteCopyWithImpl<T, OnTapFavorite<T>>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnTapFavorite<T>&&(identical(other.recipe, recipe) || other.recipe == recipe));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,recipe);
+
+@override
+String toString() {
+  return 'HomeAction<$T>.onTapFavorite(recipe: $recipe)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $OnTapFavoriteCopyWith<T,$Res> implements $HomeActionCopyWith<T, $Res> {
+  factory $OnTapFavoriteCopyWith(OnTapFavorite<T> value, $Res Function(OnTapFavorite<T>) _then) = _$OnTapFavoriteCopyWithImpl;
+@useResult
+$Res call({
+ Recipe recipe
+});
+
+
+$RecipeCopyWith<$Res> get recipe;
+
+}
+/// @nodoc
+class _$OnTapFavoriteCopyWithImpl<T,$Res>
+    implements $OnTapFavoriteCopyWith<T, $Res> {
+  _$OnTapFavoriteCopyWithImpl(this._self, this._then);
+
+  final OnTapFavorite<T> _self;
+  final $Res Function(OnTapFavorite<T>) _then;
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? recipe = null,}) {
+  return _then(OnTapFavorite<T>(
+null == recipe ? _self.recipe : recipe // ignore: cast_nullable_to_non_nullable
+as Recipe,
+  ));
+}
+
+/// Create a copy of HomeAction
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RecipeCopyWith<$Res> get recipe {
+  
+  return $RecipeCopyWith<$Res>(_self.recipe, (value) {
+    return _then(_self.copyWith(recipe: value));
+  });
+}
+}
+
 // dart format on

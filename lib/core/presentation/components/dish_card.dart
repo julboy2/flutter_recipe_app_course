@@ -6,9 +6,13 @@ import '../../../ui/text_styles.dart';
 
 class DishCard extends StatelessWidget {
   final Recipe recipe;
-  final bool isFavorite;
+  final void Function(Recipe recipe) onTapFavorite;
 
-  const DishCard({super.key, required this.recipe, required this.isFavorite});
+  const DishCard({
+    super.key,
+    required this.recipe,
+    required this.onTapFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +69,20 @@ class DishCard extends StatelessWidget {
           Positioned(
             right: 10,
             bottom: 10,
-            child: Container(
-              width: 24,
-              height: 24,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.bookmark_outline,
-                color: isFavorite ? ColorStyles.primary80 : ColorStyles.gray3,
-                size: 16,
+            child: GestureDetector(
+              onTap: () => onTapFavorite(recipe),
+              child: Container(
+                width: 24,
+                height: 24,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.bookmark_outline,
+                  color: recipe.isFavorite ? ColorStyles.primary80 : ColorStyles.gray3,
+                  size: 16,
+                ),
               ),
             ),
           ),
@@ -102,11 +109,11 @@ class DishCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.star, color: ColorStyles.rating,size: 10,),
+                  Icon(Icons.star, color: ColorStyles.rating, size: 10),
                   Text(
                     recipe.rating.toString(),
                     style: TextStyles.smallerTextRegular,
-                  )
+                  ),
                 ],
               ),
             ),
