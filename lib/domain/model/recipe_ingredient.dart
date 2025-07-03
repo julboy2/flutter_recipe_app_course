@@ -43,28 +43,18 @@ part "recipe_ingredient.freezed.dart";
 
 part "recipe_ingredient.g.dart";
 
+// ignore_for_file: annotate_overrides
 @freezed
+@JsonSerializable() // fromJson 추가시 꼭 명시적으로 적어줘야됨 3.x 부터
 class RecipeIngredient with _$RecipeIngredient {
-  //   const factory RecipeIngredient({
-  //     required Ingredient ingredient,
-  //     required int amount,
-  // }) = _RecipeIngredient;
 
-  @override
   final Ingredient ingredient;
-  @override
   final int amount;
 
   const RecipeIngredient({required this.ingredient, this.amount = 0});
 
   factory RecipeIngredient.fromJson(Map<String, Object?> json) =>
       _$RecipeIngredientFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
 
 
 }

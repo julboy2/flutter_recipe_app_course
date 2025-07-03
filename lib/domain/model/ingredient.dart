@@ -58,30 +58,22 @@ part "ingredient.g.dart";
 //   factory Ingredient.fromJson(Map<String, Object?> json) =>
 //       _$IngredientFromJson(json);
 // }
-@freezed
-class Ingredient with _$Ingredient {
-  // const factory Ingredient({
-  //   required int id,
-  //   required String name,
-  //   required String image,
-  // }) = _Ingredient;
 
-  @override
+// ignore_for_file: annotate_overrides
+@freezed
+@JsonSerializable() // fromJson 추가시 꼭 명시적으로 적어줘야됨 3.x 부터
+class Ingredient with _$Ingredient {
+
   final int id;
-  @override
   final String name;
-  @override
   final String image;
 
-  const Ingredient({this.id = 0, this.name = "", this.image = ""});
+  const Ingredient({
+    required this.id,
+    required this.name,
+    required this.image,
+  });
 
   factory Ingredient.fromJson(Map<String, Object?> json) => _$IngredientFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
-
 
 }

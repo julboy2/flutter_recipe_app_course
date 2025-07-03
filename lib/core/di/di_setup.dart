@@ -63,7 +63,7 @@ void diSetup() {
   // ViewModel
   // SavedRecipesViewModel 을 호출할때 마다 매번 이코드가 실행 되면서 인스턴스가 따라온다.
   getIt.registerFactory<SavedRecipesViewModel>(
-    () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt()),
+    () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt(), toggleBookmarkRecipeUseCase: getIt()),
   );
   getIt.registerFactory<SearchViewModel>(
     () => SearchViewModel(

@@ -6,8 +6,13 @@ import '../../../domain/model/recipe.dart';
 
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
+  final void Function(Recipe recipe) onTapFavorite;
 
-  const RecipeCard({super.key, required this.recipe});
+  const RecipeCard({
+    super.key,
+    required this.recipe,
+    required this.onTapFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +70,17 @@ class RecipeCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                ClipOval(
-                  child: Container(
-                    color: Colors.white,
-                    padding: const EdgeInsets.all(3),
-                    child: const Icon(
-                      Icons.bookmark_border_outlined,
-                      color: ColorStyles.primary80,
-                      size: 16,
+                GestureDetector(
+                  onTap: () => onTapFavorite(recipe),
+                  child: ClipOval(
+                    child: Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.all(3),
+                      child: const Icon(
+                        Icons.bookmark_border_outlined,
+                        color: ColorStyles.primary80,
+                        size: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -92,15 +100,11 @@ class RecipeCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.star,
-                    color: ColorStyles.rating,
-                    size: 12,
-                  ),
+                  const Icon(Icons.star, color: ColorStyles.rating, size: 12),
                   Text(
                     recipe.rating.toString(),
                     style: TextStyles.smallerTextRegular,
-                  )
+                  ),
                 ],
               ),
             ),

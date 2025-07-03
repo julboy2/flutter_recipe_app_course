@@ -100,7 +100,9 @@ part 'recipe.freezed.dart';
 
 part 'recipe.g.dart';
 
+// ignore_for_file: annotate_overrides
 @freezed
+@JsonSerializable() // fromJson 추가시 꼭 명시적으로 적어줘야됨 3.x 부터
 class Recipe with _$Recipe {
   // const factory Recipe({
   //   required String category,
@@ -114,23 +116,14 @@ class Recipe with _$Recipe {
   //   @Default(false) bool isFavorite,
   // }) = _Recipe;
 
-  @override
   final String category;
-  @override
   final int id;
-  @override
   final String name;
-  @override
   final String image;
-  @override
   final String chef;
-  @override
   final String time;
-  @override
   final double rating;
-  @override
   final List<RecipeIngredient> ingredients;
-  @override
   final bool isFavorite;
 
   const Recipe({
@@ -147,9 +140,10 @@ class Recipe with _$Recipe {
 
   factory Recipe.fromJson(Map<String, Object?> json) => _$RecipeFromJson(json);
 
-  @override
-  Map<String, dynamic> toJson() {
-    // TODO: implement toJson
-    throw UnimplementedError();
-  }
+  // Map<String, dynamic> toJson() {
+  //   // TODO: implement toJson
+  //   throw UnimplementedError();
+  // }
+
+  Map<String, Object?> toJson() => _$RecipeToJson(this);
 }
