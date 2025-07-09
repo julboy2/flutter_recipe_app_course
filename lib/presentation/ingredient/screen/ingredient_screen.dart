@@ -10,14 +10,19 @@ import '../../../ui/color_styles.dart';
 import '../../../ui/text_styles.dart';
 import '../ingredient_state.dart';
 
+// 화면에서 가지고 있는 메뉴는 별도로 정의한다.
+enum IngredientMenu { share, rate, review, unSave }
+
 class IngredientScreen extends StatelessWidget {
   final IngredientState state;
   final void Function(IngredientAction action) onAction;
+  final void Function(IngredientMenu menu) onTapMenu;
 
   const IngredientScreen({
     super.key,
     required this.state,
     required this.onAction,
+    required this.onTapMenu,
   });
 
   @override
@@ -31,8 +36,7 @@ class IngredientScreen extends StatelessWidget {
             itemBuilder: (context) {
               return [
                 PopupMenuItem(
-                  onTap: () =>
-                      onAction(IngredientAction.onTapShareMenu(state.recipe!)),
+                  onTap: () => onTapMenu(IngredientMenu.share),
                   child: Row(
                     children: [
                       Icon(Icons.share, size: 20),
@@ -42,8 +46,7 @@ class IngredientScreen extends StatelessWidget {
                   ),
                 ),
                 PopupMenuItem(
-                  onTap: () =>
-                      onAction(IngredientAction.onTapRateRecipe(state.recipe!)),
+                  onTap: () => onTapMenu(IngredientMenu.rate),
                   child: Row(
                     children: [
                       Icon(Icons.star, size: 20),
@@ -53,8 +56,7 @@ class IngredientScreen extends StatelessWidget {
                   ),
                 ),
                 PopupMenuItem(
-                  onTap: () =>
-                      onAction(IngredientAction.onTapReview(state.recipe!)),
+                  onTap: () => onTapMenu(IngredientMenu.review),
                   child: Row(
                     children: [
                       Icon(Icons.comment, size: 20),
@@ -64,8 +66,7 @@ class IngredientScreen extends StatelessWidget {
                   ),
                 ),
                 PopupMenuItem(
-                  onTap: () =>
-                      onAction(IngredientAction.onTapUnsave(state.recipe!)),
+                  onTap: () => onTapMenu(IngredientMenu.unSave),
                   child: Row(
                     children: [
                       Icon(Icons.bookmark, size: 20),

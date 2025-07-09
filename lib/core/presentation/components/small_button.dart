@@ -58,7 +58,9 @@ class _SmallButtonState extends State<SmallButton> {
               widget.text,
               // copyWith 는 runtime 에 실행 된다
               // 만약성능이 중요하다면 normalTextBold 에 미리 색깔을 넣자
-              style: widget.textStyle.copyWith(color: Colors.white),
+              style: TextStyles.smallerTextBold.copyWith(
+                  color: Colors.white
+              ),
             ),
           ],
         ),
