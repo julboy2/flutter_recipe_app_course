@@ -66,7 +66,6 @@ class MyHomePage extends StatelessWidget {
                     builder: (_) {
                       return RatingDialog(
                           title: 'Rate Recipe',
-                          score: 3,
                           actionName: 'Send',
                           onChange: (score) {
                             print(score);

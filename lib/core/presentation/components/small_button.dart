@@ -5,7 +5,7 @@ import 'package:flutter_recipe_app_course/ui/text_styles.dart';
 // StatefulWidget 는 상태가 필요하기때문에 씀
 class SmallButton extends StatefulWidget {
   final String text;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   final Color color;
   final TextStyle textStyle;
 
@@ -26,20 +26,24 @@ class _SmallButtonState extends State<SmallButton> {
 
   @override
   Widget build(BuildContext context) {
+    final buttonColor = widget.onPressed == null
+    ? ColorStyles.gray4
+        : (isPressed ? ColorStyles.gray4 : widget.color);
+
     return GestureDetector(
-      onTapDown: (_) {
+      onTapDown: widget.onPressed ==null ? null : (_) {
         setState(() {
           isPressed = true;
         });
       },
-      onTapUp: (_) {
+      onTapUp: widget.onPressed ==null ? null : (_) {
         setState(() {
           isPressed = false;
         });
-        widget.onPressed();
+        widget.onPressed?.call();
       },
       // 클릭하고 버튼 밖에서 땠을때 처리
-      onTapCancel: () {
+      onTapCancel: widget.onPressed ==null ? null : () {
         setState(() {
           isPressed = false;
         });
@@ -49,7 +53,7 @@ class _SmallButtonState extends State<SmallButton> {
         height: 37,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isPressed ? ColorStyles.gray4 : widget.color,
+          color: buttonColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

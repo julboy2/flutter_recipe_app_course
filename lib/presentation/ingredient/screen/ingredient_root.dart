@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app_course/core/presentation/dialogs/rating_dialog.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/ingredient_action.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/ingredient_view_model.dart';
 import 'package:flutter_recipe_app_course/presentation/ingredient/screen/ingredient_screen.dart';
 
 import '../../../core/di/di_setup.dart';
-import '../../../core/presentation/components/share_dialog.dart';
+import '../../../core/presentation/dialogs/share_dialog.dart';
 
 class IngredientRoot extends StatelessWidget {
   final int recipeId;
@@ -24,7 +25,7 @@ class IngredientRoot extends StatelessWidget {
             : IngredientScreen(
                 state: viewModel.state,
                 onTapMenu: (menu) {
-                  switch(menu){
+                  switch (menu) {
                     case IngredientMenu.share:
                       showDialog(
                         context: context,
@@ -35,14 +36,43 @@ class IngredientRoot extends StatelessWidget {
                               viewModel.onAction(
                                 IngredientAction.onTapShareMenu(link),
                               );
+
+                              // 닫기
                               Navigator.pop(context);
+
+                              // 클릭했을때 아래 토스트 창 뜨기
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Link Copied",                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+
                             },
                           );
                         },
                       );
                     case IngredientMenu.rate:
-                      // TODO: Handle this case.
-                      throw UnimplementedError();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return RatingDialog(
+                            title: "Rate recipe",
+                            actionName: "Send",
+                            onChange: (score) {
+                              viewModel.onAction(
+                                IngredientAction.onTapRateRecipe(
+                                  viewModel.state.recipe!,
+                                  score,
+                                ),
+                              );
+                              // 닫기
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
                     case IngredientMenu.review:
                       // TODO: Handle this case.
                       throw UnimplementedError();
@@ -50,7 +80,6 @@ class IngredientRoot extends StatelessWidget {
                       // TODO: Handle this case.
                       throw UnimplementedError();
                   }
-
                 },
                 onAction: viewModel.onAction,
               );
